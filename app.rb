@@ -2,5 +2,5 @@ require 'sinatra'
 require 'sinatra/activerecord'
 
 get '/' do
-  "headf"
+  erb :home
 end
