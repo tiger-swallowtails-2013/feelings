@@ -8,6 +8,7 @@ gem "shotgun"
 gem "tux"
 gem "omniauth"
 gem "omniauth-facebook", "1.4.0"
+gem "json"
 
 group :production do
   gem "pg"

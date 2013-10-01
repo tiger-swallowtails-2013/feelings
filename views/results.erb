@@ -1,0 +1,24 @@
+<h2><%= getUserName %>, here are your results!<p/></h2>
+<% @hash["response"]["songs"].each do |song|%>
+<%= song["artist_name"] %> -
+<%= song["title"] %><p/>
+<%end%>
+<h2>Search by mood and genre again:<p/>
+<form action="/search" method="get">
+  Mood: <select name="mood">
+    <option value="happy">Happy</option>
+    <option value="sad">Sad</option>
+    <option value="angry">Angry</option>
+    <option value="relaxing">Relaxing</option>
+    <option value="excited">EXCITED</option>
+  </select>
+Genre: <select name="genre">
+    <option value="electro+trance">Electro Trance</option>
+    <option value="emo">Emo</option>
+    <option value="epic doom metal">Epic Doom Metal</option>
+    <option value="german rock">German Rock</option>
+    <option value="thai pop">Thai pop</option>
+  </select><p/>
+
+  <input type="submit" value="search">
+</form>
