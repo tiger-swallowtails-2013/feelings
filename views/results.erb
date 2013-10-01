@@ -1,5 +1,5 @@
 <h2><%= getUserName %>, here are your results!<p/></h2>
-<% @hash["response"]["songs"].each do |song|%>
+<% @sorted_hash.each do |song|%>
 <%= song["artist_name"] %> -
 <%= song["title"] %><p/>
 <%end%>
@@ -13,7 +13,7 @@
     <option value="excited">EXCITED</option>
   </select>
 Genre: <select name="genre">
-    <option value="electro+trance">Electro Trance</option>
+    <option value="electro trance">Electro Trance</option>
     <option value="emo">Emo</option>
     <option value="epic doom metal">Epic Doom Metal</option>
     <option value="german rock">German Rock</option>

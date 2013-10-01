@@ -47,7 +47,8 @@ get '/search' do
   mood = URI::escape(params[:mood])
   style = URI::escape(params[:style])
   uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=10&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}")
-  @hash = JSON.parse(Net::HTTP.get(uri))
+  hash = JSON.parse(Net::HTTP.get(uri))
+  @sorted_hash = hash["response"]["songs"].uniq{|song| song["artist_name"]
   erb :results
 end
 
