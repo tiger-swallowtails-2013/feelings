@@ -1,5 +1,5 @@
 <h2><%= getUserName %>, here are your results!<p/></h2>
-<% @sorted_hash.each do |song|%>
+<% @sorted_array.each do |song|%>
 <%= song["artist_name"] %> -
 <%= song["title"] %><p/>
 <%end%>
@@ -18,7 +18,8 @@ Genre: <select name="genre">
     <option value="epic doom metal">Epic Doom Metal</option>
     <option value="german rock">German Rock</option>
     <option value="thai pop">Thai pop</option>
-  </select><p/>
+  </select> 
 
-  <input type="submit" value="search">
+  <input type="submit" value="Create my playlist">
 </form>
+<iframe src="https://embed.spotify.com/?uri=spotify:trackset:Your own playlist:<%= @spotify_song_ids.join(',') %>" frameborder='0' allowtransparency='true' height='500'></iframe>

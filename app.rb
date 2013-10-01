@@ -46,9 +46,13 @@ post '/canvas/' do
 get '/search' do
   mood = URI::escape(params[:mood])
   style = URI::escape(params[:style])
-  uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=10&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}")
-  hash = JSON.parse(Net::HTTP.get(uri))
-  @sorted_hash = hash["response"]["songs"].uniq{|song| song["artist_name"]}
+  song_url = "http://developer.echonest.com/api/v4/song/search?" +
+             "api_key=AUAC13N6YQZ5F1XMD&format=json&results=100&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}"
+  song_uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=100&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}")
+  hash = JSON.parse(Net::HTTP.get(song_uri))
+  @sorted_array = hash["response"]["songs"].uniq{|song| song["artist_name"]}
+  
+  @spotify_song_ids = get_playlist(@sorted_array)
   erb :results
 end
 
@@ -60,5 +64,24 @@ helpers do
   def getUserName
     session[:name]
   end
+  def get_playlist(array_of_songs)
+    array_of_songs.map do |song|
+      query_spotify(song["artist_name"], song["title"])
+    end.select{ |value| !value.nil? }
+  end
+
+  def query_spotify(artist_name, song_title)
+    artist = URI::escape(artist_name).gsub(/&/, "and")
+    uri = "http://ws.spotify.com/search/1/track.json?q="
+    request = URI("#{uri}#{artist}")
+    response = JSON.parse(Net::HTTP.get(request))
+    get_spotify_song_id(response, song_title)
+  end
+
+  def get_spotify_song_id(all_tracks, song_title)
+    result = all_tracks["tracks"].select { |track| track["name"].include? song_title}
+    result.empty? ? nil : result[0]["href"].gsub(/spotify:track:/, "") 
+  end
+
 end
 
