@@ -7,7 +7,7 @@ gem "sinatra-activerecord"
 gem "shotgun"
 gem "tux"
 gem "omniauth"
-gem "omniauth-facebook"
+gem "omniauth-facebook", "1.4.0"
 
 group :production do
   gem "pg"
