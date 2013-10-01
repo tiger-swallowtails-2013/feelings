@@ -9,11 +9,13 @@ describe "user model" do
   end
 end
 
-describe "user can view mood list" do
+describe "user can view mood list", :type => :feature do
   
   it "should show the home page with the fb button" do
     visit '/'
     expect(page).to have_content("Log in")
   end
+
+  it
 
 end
