@@ -13,4 +13,9 @@ Style: <select name="style">
 </select>
 <input type="submit" value="Find me songs!">
 </form>
+<% if @songs %>
 
+<%= @songs["artist_name"] %> -
+<%= @songs["title"] %>
+
+<%end%>
