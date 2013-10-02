@@ -32,8 +32,7 @@ get '/auth/:provider/callback' do
  redirect '/'
 end
 
-get '/welcome' do
-
+get '/search' do
 end
 
 SCOPE = 'email'
