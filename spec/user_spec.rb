@@ -61,4 +61,9 @@ describe "user can create playlist: ", :type => :feature do
     expect(last_response).to be_ok
   end
 
+  it "returns a list of songs returned by echonest" do
+    click_on 'Find me songs!'
+    expect(page).to have_content("Drink To Get Drunk")
+  end
+
 end
