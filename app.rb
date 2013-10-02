@@ -50,7 +50,7 @@ get '/search' do
              "api_key=AUAC13N6YQZ5F1XMD&format=json&results=100&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}"
   song_uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=100&mood=#{mood}&song_type=studio&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}")
   hash = JSON.parse(Net::HTTP.get(song_uri))
-  @sorted_array = hash["response"]["songs"].uniq{|song| song["artist_name"]}
+  @sorted_array = hash["response"]["songs"].uniq{|song| song["title"]}
   
   @spotify_song_ids = get_playlist(@sorted_array)
   erb :results
@@ -65,8 +65,9 @@ helpers do
     session[:name]
   end
   def get_playlist(array_of_songs)
-    array_of_songs.map do |song|
-      query_spotify(song["artist_name"], song["title"])
+    result = []
+    array_of_songs.each do |song|
+      result << query_spotify(song["artist_name"], song["title"]) if query_spotify(song["artist_name"], song["title"])
     end.select{ |value| !value.nil? }
   end
 
@@ -85,3 +86,4 @@ helpers do
 
 end
 
+# http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=100&mood=happy^0.5&mood=sad^1.5&song_type=studio&mode=0&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=funk^10&sort=artist_hotttnesss-desc
