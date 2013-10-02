@@ -33,6 +33,11 @@ get '/auth/:provider/callback' do
  redirect '/'
 end
 
+get '/logout' do
+  session.clear
+  redirect '/'
+end
+
 get '/search' do
   @songs = get_playlist(params)
   erb :home
