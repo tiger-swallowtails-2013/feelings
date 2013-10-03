@@ -4,7 +4,7 @@
 
 <p> Search by mood and genre: </p>
 <form action="/search" method="get">
-	Current Mood: 
+	Current mood: 
 	<select name="current_mood">
 		<% MOOD_ARRAY.each do |mood| %>
 			<%if mood == "sad" %>
@@ -14,7 +14,7 @@
 			<%end%>
 		<%end%>
 	</select>
-	Desired Mood: 
+	Desired mood: 
 	<select name="desired_mood">
 		<% MOOD_ARRAY.each do |mood| %>
 			<%if mood == "happy" %>
@@ -28,6 +28,8 @@
 	<% STYLE_ARRAY.each do |style| %>
 			<%if style == "pop" %>
 				<%= "<option value =\""+style+"\" selected=\"selected\">"+style+"</option>"%>
+			<%elsif style == "randb"%>
+				<%= "<option value =\""+style+"\">r&b</option>"%>
 			<%else%>
 				<%= "<option value =\""+style+"\">"+style+"</option>"%>
 			<%end%>
