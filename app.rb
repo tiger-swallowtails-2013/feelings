@@ -62,15 +62,14 @@ helpers do
     style = URI::escape(params[:style])
     @x, @y = [0, 10]
     @playlist = []
-    mood_count = 0
+
+
     begin
       request_count += 1
       break if request_count > 20
-      songs = get_songs(current_mood,desired_mood, style, @x, @y)
-
+      songs = get_echonest_songs(current_mood,desired_mood, style, @x, @y)
       songs.each do |song|
         unless in_playlist_array?(song)
-          puts mood_count += 1
           change_mood
           @playlist << song
           break
@@ -93,7 +92,7 @@ helpers do
   end
 
 
-  def get_songs(current_mood, desired_mood, style, x, y)
+  def get_echonest_songs(current_mood, desired_mood, style, x, y)
     # mode = '0' REMEMBER to query for mode later on
     uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
     "&mood=#{current_mood}^#{x}"+
@@ -106,7 +105,6 @@ helpers do
     "&artist_min_hotttnesss=0.25"+
     "&sort=song_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
-    puts uri
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
