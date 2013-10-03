@@ -29,7 +29,6 @@ get '/auth/:provider/callback' do
  user.update_attributes(first_name: first_name, last_name: last_name)
 
  session[:facebook_uid] = request.env['omniauth.auth'][:uid]
- session[:first_name] =  first_name
  redirect '/'
 end
 
