@@ -79,8 +79,6 @@ helpers do
 
   def in_playlist_array?(song)
     @playlist.each do |playlist_song|
-      p playlist_song
-      p song
       return true if (playlist_song["title"].upcase == song["title"].upcase)
     end
     return false
