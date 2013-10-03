@@ -57,6 +57,9 @@ describe "user log out: ", :type => :feature do
 end
 
 describe "user can create playlist: ", :type => :feature do
+
+
+
   let(:info){
     {
       first_name: "Daniel",
@@ -66,7 +69,9 @@ describe "user can create playlist: ", :type => :feature do
 
   let(:uid) { "12345" }
 
+
   let(:params) {{ current_mood: "funky", desired_mood: "sad", style: "german rock"}}
+
 
   before(:each) do
     OmniAuth.config.add_mock(:facebook, {:uid => uid, :info => info })
@@ -80,9 +85,15 @@ describe "user can create playlist: ", :type => :feature do
     expect(page).to have_select('style', :with_options => ['Electro Trance', 'Emo'] )
   end
 
-  it "returns a list of songs returned by echonest" do
+
+  it "returns the first song according to a correct request to echonest" do
     click_on 'Find me songs!'
-    expect(page).to have_content("Drink To Get Drunk")
+    expect(page).to have_content("Otep")
+  end
+
+  it "returns a playlist of 10 songs" do
+    click_on 'Find me songs!'
+    page.has_selector?('li',:count => 10)
   end
 
   it "should have a spotify player when user wants playlist created" do
