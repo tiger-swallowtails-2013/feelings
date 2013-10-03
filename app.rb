@@ -45,6 +45,7 @@ end
 
 
 helpers do
+
   def is_not_logged_in?
     session[:facebook_uid].nil?
   end
@@ -54,15 +55,65 @@ helpers do
     user.first_name
   end
 
-  def get_playlist(params)
-    current_mood = URI::escape(params[:current_mood])
-    style = URI::escape(params[:style])
-    mode = '0'
-    uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=#{ENV['ECHONEST_KEY']}&format=json&results=5&mood=#{current_mood}&song_type=studio&mode=#{mode}&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}&sort=artist_hotttnesss-desc")
+  def get_songs(current_mood, desired_mood, style, x, y)
+    # mode = '0' REMEMBER to query for mode later on
+    uri_string = "http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=20" +
+    "&mood=#{current_mood}^#{x}"+
+    "&mood=#{desired_mood}^#{y}"+
+    "&song_type=studio"+
+    "&rank_type=relevance"+
+    "&song_min_hotttnesss=0.25"+
+    "&artist_min_hotttnesss=0.25"+
+    "&style=#{style}^10"+
+    "&sort=artist_hotttnesss-desc"
+    uri = URI(URI.encode(uri_string))
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
-    result.first
+  end
+
+  def get_playlist(params)
+    playlist_array = [{:test => 'test'}]
+    current_mood = URI::escape(params[:current_mood])
+    desired_mood = URI::escape(params[:desired_mood])
+    style = URI::escape(params[:style])
+    x = 0.1
+    y = 1.9
+    until playlist_array.length == 4
+      # p change_mood(x,y)
+      x = change_mood(x,y)[0]
+      y = change_mood(x,y)[1]
+      songs = get_songs(current_mood, desired_mood, style, x, y)
+      # puts "*"* 30
+      # puts songs.inspect
+      songs.each do |song|
+
+        if !playlist_array[-1].has_value?(song['artist_id'])
+          puts '================'
+          puts song['artist_name']
+          puts '++++++++++++++++'
+          puts 'playlist array: '
+          puts playlist_array
+          playlist_array << song
+        end
+      end
+      puts "*"*30
+      p songs
+    end
+    playlist_array
+  end
+
+
+
+
+  def change_mood(x,y)
+    array = []
+    increment = 0
+    x += increment
+    y -= increment unless y < 1
+    array << x.round(2)
+    array << y.round(2)
+    return array
   end
 
   def query_spotify(artist_name, song_title)
