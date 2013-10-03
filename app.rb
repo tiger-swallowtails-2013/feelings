@@ -55,56 +55,54 @@ helpers do
     user.first_name
   end
 
+  def get_playlist(params)
+    current_mood = URI::escape(params[:current_mood])
+    desired_mood = URI::escape(params[:desired_mood])
+    style = URI::escape(params[:style])
+    x, y = [0.1, 3.0]
+    @playlist = []
+
+    begin
+
+    songs = get_songs(current_mood,desired_mood, style, x, y)
+
+    songs.each do |song|
+      unless in_playlist_array?(song)
+        @playlist << song
+        break
+      end
+    end
+
+    end while @playlist.length <= 2
+    @playlist
+  end
+
+  def in_playlist_array?(song)
+    @playlist.each do |playlist_song|
+      p playlist_song
+      p song
+      return true if (playlist_song["title"].upcase == song["title"].upcase)
+    end
+    return false
+  end
+
+
   def get_songs(current_mood, desired_mood, style, x, y)
     # mode = '0' REMEMBER to query for mode later on
-    uri_string = "http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=20" +
-    "&mood=#{current_mood}^#{x}"+
-    "&mood=#{desired_mood}^#{y}"+
-    "&song_type=studio"+
-    "&rank_type=relevance"+
-    "&song_min_hotttnesss=0.25"+
-    "&artist_min_hotttnesss=0.25"+
-    "&style=#{style}^10"+
-    "&sort=artist_hotttnesss-desc"
+    uri_string = "http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=30" +
+                  "&mood=#{current_mood}^#{x}"+
+                  "&mood=#{desired_mood}^#{y}"+
+                  "&song_type=studio"+
+                  "&rank_type=relevance"+
+                  "&song_min_hotttnesss=0.25"+
+                  "&artist_min_hotttnesss=0.25"+
+                  "&style=#{style}^10"+
+                  "&sort=artist_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
   end
-
-  def get_playlist(params)
-    playlist_array = [{:test => 'test'}]
-    current_mood = URI::escape(params[:current_mood])
-    desired_mood = URI::escape(params[:desired_mood])
-    style = URI::escape(params[:style])
-    x = 0.1
-    y = 1.9
-    until playlist_array.length == 4
-      # p change_mood(x,y)
-      x = change_mood(x,y)[0]
-      y = change_mood(x,y)[1]
-      songs = get_songs(current_mood, desired_mood, style, x, y)
-      # puts "*"* 30
-      # puts songs.inspect
-      songs.each do |song|
-
-        if !playlist_array[-1].has_value?(song['artist_id'])
-          puts '================'
-          puts song['artist_name']
-          puts '++++++++++++++++'
-          puts 'playlist array: '
-          puts playlist_array
-          playlist_array << song
-        end
-      end
-      puts "*"*30
-      p songs
-    end
-    playlist_array
-  end
-
-
-
 
   def change_mood(x,y)
     array = []

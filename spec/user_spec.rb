@@ -86,11 +86,6 @@ describe "user can create playlist: ", :type => :feature do
   end
 
 
-  it "should have the params hash set to the user selections" do
-    get '/search', params
-    expect(last_response).to be_ok
-  end
-
   it "returns the first song according to a correct request to echonest" do
     click_on 'Find me songs!'
     expect(page).to have_content("Otep")
