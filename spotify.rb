@@ -7,7 +7,7 @@ module Spotify
     get_song_id(response, song_title)
   end
 
-  def get_song_id(all_tracks, song_title)
+  def self.get_song_id(all_tracks, song_title)
     result = all_tracks["tracks"].select { |track| track["name"].include? song_title}
     result.empty? ? nil : result[0]["href"].gsub(/spotify:track:/, "")
   end
