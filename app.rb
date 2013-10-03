@@ -33,17 +33,23 @@ get '/auth/:provider/callback' do
  redirect '/'
 end
 
+get '/logout' do
+  session.clear
+  redirect '/'
+end
+
 get '/search' do
   @songs = get_playlist(params)
   erb :home
 end
+
 
 helpers do
   def get_playlist(params)
     current_mood = URI::escape(params[:current_mood])
     style = URI::escape(params[:style])
     mode = '0'
-    puts uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=#{ENV['ECHONEST_KEY']}&format=json&results=5&mood=#{current_mood}&song_type=studio&mode=#{mode}&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}&sort=artist_hotttnesss-desc")
+    uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=#{ENV['ECHONEST_KEY']}&format=json&results=5&mood=#{current_mood}&song_type=studio&mode=#{mode}&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}&sort=artist_hotttnesss-desc")
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
