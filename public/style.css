@@ -1,0 +1,10 @@
+
+.loading_image {
+  display: none;
+  position:relative;
+  width: 100;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
