@@ -20,13 +20,13 @@ describe "user log in: ", :type => :feature do
 
   it "should show the home page with the fb button" do
     visit '/'
-    expect(page).to have_content("Log in")
+    expect(page).to have_content("Login")
   end
 
   it "shows welcome page after successful log in" do
     OmniAuth.config.add_mock(:facebook, {:uid => uid, :info => info })
     visit '/'
-    click_on 'Log in'
+    click_on 'Login'
     expect(page).to have_content("Welcome Daniel")
   end
 
@@ -45,14 +45,15 @@ describe "user log out: ", :type => :feature do
   before(:each) do
     OmniAuth.config.add_mock(:facebook, {:uid => uid, :info => info })
     visit '/'
-    click_on 'Log in'
+    click_on 'Login'
   end
 
-  it "should terminate the session" do
+  it "should log the user out" do
     visit '/'
     click_on 'Logout'
-    expect(page).to have_content ("Log in")
+    expect(page).to have_content("Login")
   end
+
 end
 
 describe "user can create playlist: ", :type => :feature do
@@ -70,7 +71,7 @@ describe "user can create playlist: ", :type => :feature do
   before(:each) do
     OmniAuth.config.add_mock(:facebook, {:uid => uid, :info => info })
     visit '/'
-    click_on 'Log in'
+    click_on 'Login'
   end
 
   it "lets a user choose which mood they're in, which mood they want to be in and the style" do

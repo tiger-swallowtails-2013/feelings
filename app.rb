@@ -30,6 +30,7 @@ get '/auth/:provider/callback' do
 
  session[:user_id] = request.env['omniauth.auth'][:uid]
  session[:first_name] =  first_name
+ session[:fb_token] = request.env['omniauth.auth']['credentials']['token']
  redirect '/'
 end
 
@@ -43,15 +44,18 @@ get '/search' do
   erb :home
 end
 
+
 helpers do
   def get_playlist(params)
     current_mood = URI::escape(params[:current_mood])
     style = URI::escape(params[:style])
     mode = '0'
-    puts uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=#{ENV['ECHONEST_KEY']}&format=json&results=5&mood=#{current_mood}&song_type=studio&mode=#{mode}&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}&sort=artist_hotttnesss-desc")
+    uri = URI("http://developer.echonest.com/api/v4/song/search?api_key=#{ENV['ECHONEST_KEY']}&format=json&results=5&mood=#{current_mood}&song_type=studio&mode=#{mode}&rank_type=relevance&song_min_hotttnesss=0.25&artist_min_hotttnesss=0.25&style=#{style}&sort=artist_hotttnesss-desc")
+    puts uri
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
+    p ENV['ECHONEST_KEY']
     result.first
   end
 end
