@@ -1,3 +1,4 @@
+
 <h1>Welcome <%= @first_name %> </h1>
 
 <p> Search by mood and genre: </p>
@@ -6,16 +7,17 @@
   <%= erb :_mood_options %>
 </select>
 Desired Mood: <select name="desired_mood">
-  <%= erb :_mood_options %>
+<%= erb :_mood_options %>
 </select>
 Style: <select name="style">
-  <%= erb :_style_options %>
+<%= erb :_style_options %>
 </select>
 <input type="submit" value="Find me songs!">
 </form>
-<% if @songs %>
 
+<% if @songs %>
 <%= @songs["artist_name"] %> -
 <%= @songs["title"] %>
-
 <%end%>
+
+<a href="/logout" id="logout">Logout</a>
