@@ -1,4 +1,5 @@
-require_relative '../app'
+$LOAD_PATH.unshift(File.expand_path('.'))
+require 'app'
 require 'capybara/rspec'
 require 'rack/test'
 

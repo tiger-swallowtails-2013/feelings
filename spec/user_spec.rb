@@ -1,5 +1,5 @@
-require_relative './spec_helper'
-require_relative '../app'
+require 'spec_helper'
+require 'app'
 
 describe "user model" do
   it "should create a user if they don't already exist" do
@@ -83,6 +83,11 @@ describe "user can create playlist: ", :type => :feature do
   it "returns a list of songs returned by echonest" do
     click_on 'Find me songs!'
     expect(page).to have_content("Drink To Get Drunk")
+  end
+
+  it "should have a spotify player when user wants playlist created" do
+    click_on 'Find me songs!'
+    expect(page).to have_selector("iframe")
   end
 
 end
