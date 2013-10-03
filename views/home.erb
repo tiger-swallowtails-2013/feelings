@@ -17,9 +17,7 @@ Style: <select name="style">
 
 
 <% if @songs %>
-
-
-
+	<p>Your custom <%=@style%> playlist from a current mood of <%=@current_mood%> to a desired mood of <%=@desired_mood%>:</p>
   <p>
     <iframe src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='900'></iframe>
   </p>

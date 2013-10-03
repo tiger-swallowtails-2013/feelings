@@ -10,7 +10,7 @@ module PlaylistCreator
     playlist = populate_playlist(current_mood,desired_mood,style)
     spotify_playlist = []
     playlist.each do |song|
-      spotify_playlist << Spotify.query(song['artist_name'],song['title'])
+      spotify_playlist << Spotify.return_id(song['artist_name'],song['title'])
     end
     spotify_playlist
   end

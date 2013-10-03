@@ -43,6 +43,7 @@ get '/search' do
   @current_mood = params[:current_mood]
   @desired_mood = params[:desired_mood]
   @style = params[:style]
+  @first_name = get_first_name
   erb :home
 end
 
