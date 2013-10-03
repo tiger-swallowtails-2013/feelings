@@ -29,7 +29,6 @@ get '/auth/:provider/callback' do
  user.update_attributes(first_name: first_name, last_name: last_name)
 
  session[:facebook_uid] = request.env['omniauth.auth'][:uid]
- session[:first_name] =  first_name
  redirect '/'
 end
 
@@ -56,25 +55,32 @@ helpers do
   end
 
   def get_playlist(params)
+    request_count = 0
     current_mood = URI::escape(params[:current_mood])
     desired_mood = URI::escape(params[:desired_mood])
     style = URI::escape(params[:style])
-    x, y = [0.1, 3.0]
+    @x, @y = [0, 10]
     @playlist = []
 
+
     begin
-
-    songs = get_songs(current_mood,desired_mood, style, x, y)
-
-    songs.each do |song|
-      unless in_playlist_array?(song)
-        @playlist << song
-        break
+      request_count += 1
+      break if request_count > 20
+      songs = get_echonest_songs(current_mood,desired_mood, style, @x, @y)
+      songs.each do |song|
+        unless in_playlist_array?(song)
+          change_mood
+          @playlist << song
+          break
+        end
       end
-    end
+    end while @playlist.length <= 10
 
-    end while @playlist.length <= 2
-    @playlist
+    spotify_playlist = []
+    @playlist.each do |song|
+      spotify_playlist << query_spotify(song['artist_name'],song['title'])
+    end
+    spotify_playlist
   end
 
   def in_playlist_array?(song)
@@ -85,31 +91,27 @@ helpers do
   end
 
 
-  def get_songs(current_mood, desired_mood, style, x, y)
+  def get_echonest_songs(current_mood, desired_mood, style, x, y)
     # mode = '0' REMEMBER to query for mode later on
-    uri_string = "http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=30" +
-                  "&mood=#{current_mood}^#{x}"+
-                  "&mood=#{desired_mood}^#{y}"+
-                  "&song_type=studio"+
-                  "&rank_type=relevance"+
-                  "&song_min_hotttnesss=0.25"+
-                  "&artist_min_hotttnesss=0.25"+
-                  "&style=#{style}^10"+
-                  "&sort=artist_hotttnesss-desc"
+    uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
+    "&mood=#{current_mood}^#{x}"+
+    "&mood=#{desired_mood}^#{y}"+
+    "&style=#{style}^100"+
+    "&results=20" +
+    "&type=artist-description" +
+    "&song_type=studio"+
+    "&song_min_hotttnesss=0.5"+
+    "&artist_min_hotttnesss=0.25"+
+    "&sort=song_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
   end
 
-  def change_mood(x,y)
-    array = []
-    increment = 0
-    x += increment
-    y -= increment unless y < 1
-    array << x.round(2)
-    array << y.round(2)
-    return array
+  def change_mood
+    @x += 1
+    @y = 10 - @x unless @y < 0
   end
 
   def query_spotify(artist_name, song_title)
