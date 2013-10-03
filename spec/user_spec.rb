@@ -10,13 +10,13 @@ describe "user model" do
 end
 
 describe "user log in: ", :type => :feature do
-    let(:info){
-                {
-                first_name: "Daniel",
-                last_name: "Trostli",
-                }
-              }
-    let(:uid){ "12345" }
+  let(:info){
+    {
+      first_name: "Daniel",
+      last_name: "Trostli",
+    }
+  }
+  let(:uid){ "12345" }
 
   it "should show the home page with the fb button" do
     visit '/'
@@ -33,23 +33,24 @@ describe "user log in: ", :type => :feature do
 end
 
 describe "user can create playlist: ", :type => :feature do
-    let(:info){ 
-                {
-                first_name: "Daniel",
-                last_name: "Trostli",
-                }
-              }
+  let(:info){ 
+    {
+      first_name: "Daniel",
+      last_name: "Trostli",
+    }
+  }
 
-    let(:uid) { "12345" }
+  let(:uid) { "12345" }
 
-    let(:params) {{ current_mood: "funky", desired_mood: "sad", style: "german rock"}}
+  let(:params) {{ current_mood: "funky", desired_mood: "sad", style: "german rock"}}
+
 
   before(:each) do
     OmniAuth.config.add_mock(:facebook, {:uid => uid, :info => info })
     visit '/'
     click_on 'Log in'
   end
-      
+
   it "lets a user choose which mood they're in, which mood they want to be in and the style" do
     expect(page).to have_select('current_mood', :with_options => ['happy', 'sad'] )
     expect(page).to have_select('desired_mood', :with_options => ['happy', 'sad'] )
@@ -61,9 +62,15 @@ describe "user can create playlist: ", :type => :feature do
     expect(last_response).to be_ok
   end
 
-  it "returns a list of songs returned by echonest" do
+  it "returns the first song according to a correct request to echonest" do
     click_on 'Find me songs!'
-    expect(page).to have_content("Drink To Get Drunk")
+    expect(page).to have_content("Otep")
   end
+
+  it "returns a playlist of 10 songs" do 
+    click_on 'Find me songs!'
+    page.has_selector?('li',:count => 10)
+  end
+
 
 end

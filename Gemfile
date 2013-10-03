@@ -14,6 +14,7 @@ group :development do
   gem 'sqlite3'
   gem 'rspec'
   gem 'capybara'
+  gem 'pry'
 end 
 
 group :production do

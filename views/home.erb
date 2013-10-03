@@ -6,16 +6,19 @@
   <%= erb :_mood_options %>
 </select>
 Desired Mood: <select name="desired_mood">
-  <%= erb :_mood_options %>
+<%= erb :_mood_options %>
 </select>
 Style: <select name="style">
-  <%= erb :_style_options %>
+<%= erb :_style_options %>
 </select>
 <input type="submit" value="Find me songs!">
 </form>
+
+
+
+
 <% if @songs %>
-
-<%= @songs["artist_name"] %> -
-<%= @songs["title"] %>
-
+  <% @songs.each do |song|%> 
+    <li><%= song["artist_name"] %> - <%= song["title"] %></li>
+  <%end%>
 <%end%>
