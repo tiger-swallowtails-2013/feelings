@@ -18,6 +18,9 @@ Style: <select name="style">
 <% if @songs %>
 <%= @songs["artist_name"] %> -
 <%= @songs["title"] %>
+<p>
+  <iframe src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:" frameborder='0' allowtransparency='true' height='500'></iframe>
+</p>
 <%end%>
 
 <a href="/logout" id="logout">Logout</a>
