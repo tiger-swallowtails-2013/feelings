@@ -60,16 +60,18 @@ helpers do
     current_mood = URI::escape(params[:current_mood])
     desired_mood = URI::escape(params[:desired_mood])
     style = URI::escape(params[:style])
-    x, y = [0.1, 3.0]
+    @x, @y = [0, 10]
     @playlist = []
-
+    mood_count = 0
     begin
       request_count += 1
       break if request_count > 20
-      songs = get_songs(current_mood,desired_mood, style, x, y)
+      songs = get_songs(current_mood,desired_mood, style, @x, @y)
 
       songs.each do |song|
         unless in_playlist_array?(song)
+          puts mood_count += 1
+          change_mood
           @playlist << song
           break
         end
@@ -104,19 +106,15 @@ helpers do
     "&artist_min_hotttnesss=0.25"+
     "&sort=song_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
+    puts uri
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
   end
 
-  def change_mood(x,y)
-    array = []
-    increment = 0
-    x += increment
-    y -= increment unless y < 1
-    array << x.round(2)
-    array << y.round(2)
-    return array
+  def change_mood
+    @x += 1
+    @y = 10 - @x unless @y < 0
   end
 
   def query_spotify(artist_name, song_title)
