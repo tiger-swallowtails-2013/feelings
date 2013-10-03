@@ -28,8 +28,6 @@ get '/auth/:provider/callback' do
  first_name = request.env['omniauth.auth']['info'][:first_name]
  last_name = request.env['omniauth.auth']['info'][:last_name]
  profile_pic_url = request.env['omniauth.auth']['info'][:image]
- p MultiJson.encode(request.env['omniauth.auth'])
- p profile_pic_url
  user = User.find_or_create_by(facebook_uid: uid)
  user.update_attributes(first_name: first_name, last_name: last_name, profile_pic_url: profile_pic_url)
 
@@ -66,7 +64,6 @@ helpers do
 
   def get_profile_pic
     user = User.find_by_facebook_uid(session[:facebook_uid])
-    p user.profile_pic_url
     user.profile_pic_url
   end
 
