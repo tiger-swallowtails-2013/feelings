@@ -73,7 +73,7 @@ helpers do
       end
     end
 
-    end while @playlist.length <= 2
+    end while @playlist.length <= 10
     @playlist
   end
 
@@ -87,15 +87,16 @@ helpers do
 
   def get_songs(current_mood, desired_mood, style, x, y)
     # mode = '0' REMEMBER to query for mode later on
-    uri_string = "http://developer.echonest.com/api/v4/song/search?api_key=AUAC13N6YQZ5F1XMD&format=json&results=30" +
+    uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
                   "&mood=#{current_mood}^#{x}"+
                   "&mood=#{desired_mood}^#{y}"+
+                  "&style=#{style}^100"+
+                  "&results=20" +
+                  "&type=artist-description" +
                   "&song_type=studio"+
-                  "&rank_type=relevance"+
-                  "&song_min_hotttnesss=0.25"+
+                  "&song_min_hotttnesss=0.5"+
                   "&artist_min_hotttnesss=0.25"+
-                  "&style=#{style}^10"+
-                  "&sort=artist_hotttnesss-desc"
+                  "&sort=song_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
     puts uri
     response = Net::HTTP.get(uri)
