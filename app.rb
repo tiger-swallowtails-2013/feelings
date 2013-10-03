@@ -97,6 +97,7 @@ helpers do
                   "&style=#{style}^10"+
                   "&sort=artist_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
+    puts uri
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
