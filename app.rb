@@ -17,6 +17,7 @@ get '/' do
     erb :login
   else
     @first_name = get_first_name
+    @profile_pic_url = get_profile_pic
     erb :home
   end
 end
@@ -25,9 +26,11 @@ get '/auth/:provider/callback' do
  uid = request.env['omniauth.auth'][:uid]
  first_name = request.env['omniauth.auth']['info'][:first_name]
  last_name = request.env['omniauth.auth']['info'][:last_name]
-
+ profile_pic_url = request.env['omniauth.auth']['info'][:image]
+ p MultiJson.encode(request.env['omniauth.auth'])
+ p profile_pic_url
  user = User.find_or_create_by(facebook_uid: uid)
- user.update_attributes(first_name: first_name, last_name: last_name)
+ user.update_attributes(first_name: first_name, last_name: last_name, profile_pic_url: profile_pic_url)
 
  session[:facebook_uid] = request.env['omniauth.auth'][:uid]
  redirect '/'
@@ -44,6 +47,7 @@ get '/search' do
   @desired_mood = params[:desired_mood]
   @style = params[:style]
   @first_name = get_first_name
+  @profile_pic_url = get_profile_pic
   erb :home
 end
 
@@ -57,6 +61,12 @@ helpers do
   def get_first_name
     user = User.find_by_facebook_uid(session[:facebook_uid])
     user.first_name
+  end
+
+  def get_profile_pic
+    user = User.find_by_facebook_uid(session[:facebook_uid])
+    p user.profile_pic_url
+    user.profile_pic_url
   end
 
 end
