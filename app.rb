@@ -30,7 +30,6 @@ get '/auth/:provider/callback' do
 
  session[:user_id] = request.env['omniauth.auth'][:uid]
  session[:first_name] =  first_name
- session[:fb_token] = request.env['omniauth.auth']['credentials']['token']
  redirect '/'
 end
 
@@ -55,7 +54,6 @@ helpers do
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     result = hash["response"]["songs"]
-    p ENV['ECHONEST_KEY']
     result.first
   end
 end
