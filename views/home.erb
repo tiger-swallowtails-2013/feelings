@@ -1,31 +1,52 @@
 
 <h1>Welcome <%= @first_name %> </h1>
+<img id="profile pic" src="<%=@profile_pic_url%>">
 
 <p> Search by mood and genre: </p>
+
 <form id="gimmesongs" action="/search" method="get">
-  Current Mood: <select name="current_mood">
-  <%= erb :_mood_options %>
+
+	Current mood: 
+	<select name="current_mood">
+		<% MOOD_ARRAY.each do |mood| %>
+			<%if mood == "sad" %>
+				<%= "<option value =\""+mood+"\" selected=\"selected\">"+mood+"</option>"%>
+			<%else%>
+				<%= "<option value =\""+mood+"\">"+mood+"</option>"%>
+			<%end%>
+		<%end%>
+	</select>
+	Desired mood: 
+	<select name="desired_mood">
+		<% MOOD_ARRAY.each do |mood| %>
+			<%if mood == "happy" %>
+				<%= "<option value =\""+mood+"\" selected=\"selected\">"+mood+"</option>"%>
+			<%else%>
+				<%= "<option value =\""+mood+"\">"+mood+"</option>"%>
+			<%end%>
+		<%end%>
+	</select>
+	Style: <select name="style">
+	<% STYLE_ARRAY.each do |style| %>
+			<%if style == "pop" %>
+				<%= "<option value =\""+style+"\" selected=\"selected\">"+style+"</option>"%>
+			<%elsif style == "randb"%>
+				<%= "<option value =\""+style+"\">r&b</option>"%>
+			<%else%>
+				<%= "<option value =\""+style+"\">"+style+"</option>"%>
+			<%end%>
+		<%end%>
 </select>
-Desired Mood: <select name="desired_mood">
-<%= erb :_mood_options %>
-</select>
-Style: <select name="style">
-<%= erb :_style_options %>
-</select>
-<input type="submit" value="Find me songs!">
+<input type="submit" value="Create my playlist">
 </form>
 
 
-
-
-<% if @songs %>
-
-
-
-  <p>
-    <iframe id ="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='900'></iframe>
-  </p>
-  <%end%>
+<p>Your custom <%=@style%> playlist from a current mood of <%=@current_mood%> to a desired mood of <%=@desired_mood%>:</p>
+<p>
+	<iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='900'></iframe>
+</p>
+<%end%>
+>>>>>>> refactor_into_classes
 
 <div class ="loading_image">
     <img src="images/load.gif" width="100" height="100">
