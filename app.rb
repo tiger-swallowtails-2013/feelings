@@ -64,17 +64,23 @@ helpers do
 
     begin
 
-    songs = get_songs(current_mood,desired_mood, style, x, y)
+      songs = get_songs(current_mood,desired_mood, style, x, y)
 
-    songs.each do |song|
-      unless in_playlist_array?(song)
-        @playlist << song
-        break
+      songs.each do |song|
+        unless in_playlist_array?(song)
+          @playlist << song
+          break
+        end
       end
-    end
 
     end while @playlist.length <= 10
-    @playlist
+
+    spotify_playlist = []
+    @playlist.each do |song|
+      spotify_playlist << query_spotify(song['artist_name'],song['title'])
+    end
+    p spotify_playlist
+    spotify_playlist
   end
 
   def in_playlist_array?(song)
@@ -88,15 +94,15 @@ helpers do
   def get_songs(current_mood, desired_mood, style, x, y)
     # mode = '0' REMEMBER to query for mode later on
     uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
-                  "&mood=#{current_mood}^#{x}"+
-                  "&mood=#{desired_mood}^#{y}"+
-                  "&style=#{style}^100"+
-                  "&results=20" +
-                  "&type=artist-description" +
-                  "&song_type=studio"+
-                  "&song_min_hotttnesss=0.5"+
-                  "&artist_min_hotttnesss=0.25"+
-                  "&sort=song_hotttnesss-desc"
+    "&mood=#{current_mood}^#{x}"+
+    "&mood=#{desired_mood}^#{y}"+
+    "&style=#{style}^100"+
+    "&results=20" +
+    "&type=artist-description" +
+    "&song_type=studio"+
+    "&song_min_hotttnesss=0.5"+
+    "&artist_min_hotttnesss=0.25"+
+    "&sort=song_hotttnesss-desc"
     uri = URI(URI.encode(uri_string))
     puts uri
     response = Net::HTTP.get(uri)
@@ -115,6 +121,7 @@ helpers do
   end
 
   def query_spotify(artist_name, song_title)
+    p "query spotify"
     artist = URI::escape(artist_name).gsub(/&/, "and")
     uri = "http://ws.spotify.com/search/1/track.json?q="
     request = URI("#{uri}#{artist}")
@@ -123,6 +130,7 @@ helpers do
   end
 
   def get_spotify_song_id(all_tracks, song_title)
+    p "get spotify song id"
     result = all_tracks["tracks"].select { |track| track["name"].include? song_title}
     result.empty? ? nil : result[0]["href"].gsub(/spotify:track:/, "")
   end

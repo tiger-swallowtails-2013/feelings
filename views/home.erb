@@ -16,16 +16,14 @@ Style: <select name="style">
 </form>
 
 
-
-
-
 <% if @songs %>
-  <% @songs.each do |song|%>
-    <li><%= song["artist_name"] %> - <%= song["title"] %></li>
-  <%end%>
+
+
+
   <p>
-    <iframe src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:" frameborder='0' allowtransparency='true' height='500'></iframe>
+    <iframe src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='500'></iframe>
   </p>
-<%end%>
+  <%end%>
+
 
 <a href="/logout" id="logout">Logout</a>
