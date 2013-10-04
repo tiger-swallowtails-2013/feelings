@@ -6,7 +6,7 @@ module PlaylistCreator
     current_mood = URI::escape(params[:current_mood])
     desired_mood = URI::escape(params[:desired_mood])
     style = URI::escape(params[:style])
-    @mood_x, @mood_y = [0, 10]
+    @mood_x, @mood_y = [3, 0.1]
     playlist = populate_playlist(current_mood,desired_mood,style)
     spotify_playlist = []
     playlist.each do |song|
@@ -48,7 +48,7 @@ module PlaylistCreator
 
 
   def self.change_mood
-    @mood_x += 1
-    @mood_y = 10 - @mood_x unless @mood_y < 0
+    @mood_x -= 0.2 unless @mood_x < 0
+    @mood_y = 3 - @mood_x 
   end
 end
