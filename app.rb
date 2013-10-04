@@ -9,8 +9,7 @@ require 'config/omniauth_helper'
 require 'playlist_creator'
 require 'option_arrays'
 
-
-set :database, 'sqlite3:///moodlist.db'
+set :database, ENV["DATABASE_URL"] || 'sqlite3:///moodlist.db'
 
 
 enable :sessions
