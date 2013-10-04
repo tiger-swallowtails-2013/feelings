@@ -177,6 +177,7 @@ iframe {
 }
 
 #credits{
+  opacity: 0.6;
   position: absolute;
   left: 0px;
   right:0px;
