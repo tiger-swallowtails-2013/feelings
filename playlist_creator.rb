@@ -23,6 +23,7 @@ module PlaylistCreator
 
       break if request_count > 20
       song_array = Echonest.query_songs(current_mood,desired_mood, style, @mood_x, @mood_y)
+      # song_array = Echonest.prepare_uri(current_mood,desired_mood, style, @mood_x, @mood_y)
       playlist = make_unique_playlist(song_array,playlist)
     end while playlist.length <= 10
     playlist
