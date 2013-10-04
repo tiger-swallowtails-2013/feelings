@@ -19,6 +19,8 @@ get '/' do
   else
     @first_name = get_first_name
     @profile_pic_url = get_profile_pic
+    @current_mood  = "sad"
+    @desired_mood  = "happy"
     erb :home
   end
 end
@@ -42,8 +44,8 @@ end
 
 get '/search' do
   @songs = PlaylistCreator.get_playlist(params)
-  @current_mood = params[:current_mood]
-  @desired_mood = params[:desired_mood]
+  @current_mood  = params[:current_mood]
+  @desired_mood  = params[:desired_mood]
   @style = params[:style]
   @first_name = get_first_name
   @profile_pic_url = get_profile_pic
