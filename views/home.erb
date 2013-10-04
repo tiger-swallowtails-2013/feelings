@@ -52,13 +52,11 @@
     var clicked = false
     $('#searchbutton').click(function(e){
       e.preventDefault();
-      console.log(clicked)
       if(clicked===false){
         clicked = true
         $(".loading_div").fadeIn(2000);
         $.get('/search',$('#gimmesongs').serialize(),function(response){
           $(".loading_div").fadeOut(1000);
-          $(".loading_div").css({"display": "none"});
           $('body').html(response)
         })
       }
