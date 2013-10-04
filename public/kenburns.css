@@ -1,30 +1,33 @@
-
+/**
+ * author: Thierry Koblentz
+ * Copyright 2011 - css-101.org 
+ * http://www.css-101.org/articles/ken-burns_effect/css-transition.php
+ */
 #slideshow {
   position:relative;
   width:100%;
   height:100%;
   overflow:hidden;
-  border:0px
 }
-.slides {
+#slideshow img {
   position:absolute;
-  width:360px;
-  height:240px;
-  top:50%;
-  left:50%;
+  width:2000px;
+  height:1500px;
+  top:10%;
+  left:10%;
   margin-left:-180px;
   margin-top:-120px;
   opacity:0;
   -webkit-transition-property: opacity, -webkit-transform;
-  -webkit-transition-duration: 3s, 8s;
+  -webkit-transition-duration: 6s, 12s;
   -moz-transition-property: opacity, -moz-transform;
-  -moz-transition-duration: 3s, 8s;
+  -moz-transition-duration: 6s, 12s;
   -o-transition-property: opacity, -o-transform;
-  -o-transition-duration: 3s, 8s;
+  -o-transition-duration: 6s, 12s;
   transition-property: opacity, transform;
-  transition-duration: 3s, 8s;
+  transition-duration: 6s, 12s;
 }
-.slides  {
+#slideshow img  {
   -webkit-transform-origin: bottom left;
   -moz-transform-origin: bottom left;
   -o-transform-origin: bottom left;
@@ -49,7 +52,7 @@
   transform-origin: bottom right;
 }
 #slideshow .fx:first-child + img ~ img {
-	z-index:-1;
+  z-index:-1;
 }
 #slideshow .fx {
   -webkit-transform: scale(1.5) translate(30px);

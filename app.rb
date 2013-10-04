@@ -9,11 +9,9 @@ require 'config/omniauth_helper'
 require 'playlist_creator'
 require 'option_arrays'
 
-if ENV['RACK_ENV'] ||= :production
-  set :database, 'postgresql:///moodlist'
-else
-  set :database, 'sqlite3:///moodlist.db'
-end
+
+set :database, 'sqlite3:///moodlist.db'
+
 
 enable :sessions
 

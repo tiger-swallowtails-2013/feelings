@@ -1,8 +1,14 @@
 <body id="home">
   <div id="slideshow">
-  <img class="slides" src="images/wallpaper1.jpg" alt="">
-  <img class="slides" src="images/wallpaper2.jpg" alt="">
-  <div class="container">
+    <img class="slides" src="images/kenburns/image1.jpg" alt="">
+    <img class="slides" src="images/kenburns/image2.jpg" alt=""> 
+    <img class="slides" src="images/kenburns/image1.jpg" alt="">
+    <img class="slides" src="images/kenburns/image2.jpg" alt=""> 
+    <img class="slides" src="images/kenburns/image1.jpg" alt="">
+    <img class="slides" src="images/kenburns/image2.jpg" alt="">
+  </div>
+
+  <div class="container" id="homecontainer">
     <div class="navbar">
       <ul id="navList">
         <li><img id="logo" src="images/logo_small.png" alt="Moodlist" ></li>
@@ -38,18 +44,35 @@
       <% if @songs %>
       <h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3>
 
-       <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='500' >
-       </iframe>
-     <%end%>
+      <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='500' >
+      </iframe>
+      <%end%>
 
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-      <script type="text/javascript" src="javascript/kenburns.js"></script>
+
 
 
       <script>
       var clicked = false
       $('#searchbutton').click(function(e){
         e.preventDefault();
+
+        (function(){
+          document.getElementById('slideshow').getElementsByTagName('img')[0].className = "fx";
+          window.setInterval(kenBurns, 15000);    
+          var images         = document.getElementById('slideshow').getElementsByTagName('img'),
+          numberOfImages = images.length,
+          i              = 1;
+          function kenBurns() {
+            if(i==numberOfImages){ i = 0;}
+            images[i].className = "fx";
+            if(i===0){ images[numberOfImages-2].className = "";}
+            if(i===1){ images[numberOfImages-1].className = "";}
+            if(i>1){ images[i-2].className = "";}
+            i++;
+          }
+        })();
+
         if(clicked===false){
           clicked = true
           $(".loading_div").fadeIn(2000);
@@ -59,18 +82,17 @@
           })
         }
       })
-      $('.leftBar').hover(function(){
-        $(this).stop().animate({left: "0em"},'fast');
-      }, function(){
-        $(this).stop().animate({left: "-13em"},1000);
-      })
-      </script>
-    </div>
+$('.leftBar').hover(function(){
+  $(this).stop().animate({left: "0em"},'fast');
+}, function(){
+  $(this).stop().animate({left: "-13em"},1000);
+})
+</script>
+</div>
+<div class ="loading_div">
+  <h3 id="loading_message">Creating your custom playlist...<h3>
+    <img id="loading_image" src="images/load.gif" width="100" height="100">
   </div>
-  <div class ="loading_div">
-    <h3 id="loading_message">Creating your custom playlist...<h3>
-      <img id="loading_image" src="images/load.gif" width="100" height="100">
-    </div>
 
-  </body>
+</body>
 
