@@ -9,11 +9,9 @@ require 'config/omniauth_helper'
 require 'playlist_creator'
 require 'option_arrays'
 
-if ENV['RACK_ENV'] ||= :production
-  set :database, 'postgresql:///moodlist'
-else
-  set :database, 'sqlite3:///moodlist.db'
-end
+
+set :database, 'sqlite3:///moodlist.db'
+
 
 enable :sessions
 
@@ -26,6 +24,7 @@ get '/' do
     @current_mood  = "sad"
     @desired_mood  = "happy"
     @style = "pop"
+    @container_id = "home"
     erb :home
   end
 end
@@ -54,6 +53,7 @@ get '/search' do
   @style = params[:style]
   @first_name = get_first_name
   @profile_pic_url = get_profile_pic
+  @container_id =""
   erb :home
 end
 
