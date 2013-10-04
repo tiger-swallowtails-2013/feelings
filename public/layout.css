@@ -1,15 +1,28 @@
-body {
+body{
   margin: 0px;
   padding: 0px;
+
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+}
+
+body#home {
   background: url("images/wallpaper2.jpg");
   background-position: top left;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: #666;
-  font-size: 20px;
-  font-family: 'Lato', sans-serif;
-  color: #fff;
+}
+
+body#login {
+  background: url("images/login_splash.jpg");
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #666;
 }
 
 .navbar {
@@ -103,7 +116,21 @@ h1 {
 }
 .button.submit:hover {
   background: #114377;/* #175595*/
+}
 
+.button.facebook {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  width: 6.3em;
+  background: #2A49A5; /*#5b94cf*/
+}
+.button.facebook:hover {
+  background: #203C91;/* #175595*/
 }
 
 select {
@@ -124,4 +151,10 @@ select {
   white-space: nowrap;
   width: 50%;
  
+}
+
+#profile-pic {
+  float: right;
+  border-radius: 50%;
+
 }
