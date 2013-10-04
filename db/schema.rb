@@ -12,6 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20131003191415) do
 
+  create_table "playlists", force: true do |t|
+    t.integer "user_id"
+    t.string  "songs"
+  end
+
   create_table "songs", force: true do |t|
     t.string   "artist_name"
     t.string   "title"

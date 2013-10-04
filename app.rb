@@ -48,6 +48,8 @@ end
 
 get '/search' do
   @songs = PlaylistCreator.get_playlist(params)
+  user = User.find_by facebook_uid: session[:facebook_uid]
+  Playlist.create()
   @current_mood  = params[:current_mood]
   @desired_mood  = params[:desired_mood]
   @style = params[:style]
