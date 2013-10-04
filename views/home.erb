@@ -35,7 +35,7 @@
       <% if @songs %>
       <h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3>
 
-       <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='900' ></iframe>
+       <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='true' height='500' ></iframe>
      <%end%>
 
 
