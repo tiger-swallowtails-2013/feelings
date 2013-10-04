@@ -7,6 +7,7 @@ gem "sinatra-activerecord"
 gem "omniauth-facebook"
 gem "dotenv"
 gem 'json'
+gem 'typhoeus'
 
 group :development do
   gem 'sqlite3'
