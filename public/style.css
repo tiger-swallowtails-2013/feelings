@@ -8,7 +8,7 @@
 	color: black;
 	background-color: white;
 	position:absolute;
-	height: 150px;
+	height: 160px;
 	padding-top: 30px;
 	width: 400px;
 	top: 300px;
@@ -22,6 +22,8 @@
 	z-index: 100;
 }
 .loading_image {
+	top: -20px;
+	margin-top: 0px;
 	left: 0px;
 	right: 0px;
 	margin-left: auto;
