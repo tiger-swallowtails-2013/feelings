@@ -3,7 +3,7 @@ module Echonest
     uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
     "&mood=#{current_mood}^#{x}"+
     "&mood=#{desired_mood}^#{y}"+
-    "&style=#{style}^1.2"+
+    "&style=#{style}^5"+
     "&results=50" +
     "&type=artist-description" +
     "&song_type=studio"+
