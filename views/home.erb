@@ -1,14 +1,6 @@
-<body id="home">
-  <div id="slideshow">
-    <img class="slides" src="images/kenburns/image1.jpg" alt="">
-    <img class="slides" src="images/kenburns/image2.jpg" alt=""> 
-    <img class="slides" src="images/kenburns/image1.jpg" alt="">
-    <img class="slides" src="images/kenburns/image2.jpg" alt=""> 
-    <img class="slides" src="images/kenburns/image1.jpg" alt="">
-    <img class="slides" src="images/kenburns/image2.jpg" alt="">
-  </div>
 
-  <div class="container" id="homecontainer">
+
+  <div class="container" id="<%=@container_id%>">
     <div class="navbar">
       <ul id="navList">
         <li><img id="logo" src="images/logo_small.png" alt="Moodlist" ></li>
@@ -56,29 +48,14 @@
       var clicked = false
       $('#searchbutton').click(function(e){
         e.preventDefault();
-
-        (function(){
-          document.getElementById('slideshow').getElementsByTagName('img')[0].className = "fx";
-          window.setInterval(kenBurns, 15000);    
-          var images         = document.getElementById('slideshow').getElementsByTagName('img'),
-          numberOfImages = images.length,
-          i              = 1;
-          function kenBurns() {
-            if(i==numberOfImages){ i = 0;}
-            images[i].className = "fx";
-            if(i===0){ images[numberOfImages-2].className = "";}
-            if(i===1){ images[numberOfImages-1].className = "";}
-            if(i>1){ images[i-2].className = "";}
-            i++;
-          }
-        })();
+        $('.container').removeAttr('id')
 
         if(clicked===false){
           clicked = true
           $(".loading_div").fadeIn(2000);
           $.get('/search',$('#gimmesongs').serialize(),function(response){
             $(".loading_div").fadeOut(1000);
-            $('body').html(response)
+            $('.container').html(response).removeAttr('id')
           })
         }
       })
@@ -94,5 +71,5 @@ $('.leftBar').hover(function(){
     <img id="loading_image" src="images/load.gif" width="100" height="100">
   </div>
 
-</body>
+
 

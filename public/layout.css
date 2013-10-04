@@ -1,24 +1,26 @@
+
 body{
   margin: 0px;
   padding: 0px;
-
+  
   font-size: 20px;
   font-family: 'Lato', sans-serif;
   color: #fff;
 }
 
-body#home {
-  background: url("images/wallpaper2.jpg");
-  background-position: top left;
+#home {
+  background: url("images/home.jpg") no-repeat center center fixed;
+  background-position: bottom left;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: #666;
+
 }
 
-body#login {
+#login {
   background: url("images/login_splash_plain.jpg");
-  background-position: top left;
+  background-position: bottom left;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
