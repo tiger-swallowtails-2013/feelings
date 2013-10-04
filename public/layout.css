@@ -17,7 +17,7 @@ body#home {
 }
 
 body#login {
-  background: url("images/login_splash.jpg");
+  background: url("images/login_splash_plain.jpg");
   background-position: top left;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -126,11 +126,15 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
-  width: 6.3em;
-  background: #2A49A5; /*#5b94cf*/
+  width: 5.5em;
+  height: 2em;
+  background: #2A49A5; /* fb color #014b96*/
+  line-height: 2em;
+  padding-top: .5em;
+  padding-left: 2.5em;
 }
 .button.facebook:hover {
-  background: #203C91;/* #175595*/
+  background: #203C91;
 }
 
 select {
@@ -140,8 +144,8 @@ select {
   -webkit-padding-end: 20px;
   -webkit-padding-start: 2px;
   -webkit-user-select: none;
-  background-image: url(../images/select-arrow.png), 
-    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+
+  
   background-position: center right;
   background-repeat: no-repeat;
   color: #555;
@@ -157,4 +161,14 @@ select {
   float: right;
   border-radius: 50%;
 
+}
+
+#moodlist-logo {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
 }
