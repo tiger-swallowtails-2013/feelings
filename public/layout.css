@@ -178,6 +178,12 @@ iframe {
 
 #credits{
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  left: 0px;
+  right:0px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: small;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
 }
