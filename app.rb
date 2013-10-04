@@ -21,6 +21,7 @@ get '/' do
     @profile_pic_url = get_profile_pic
     @current_mood  = "sad"
     @desired_mood  = "happy"
+    @style = "pop"
     erb :home
   end
 end
