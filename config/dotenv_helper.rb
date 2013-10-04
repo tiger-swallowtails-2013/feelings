@@ -1,2 +1,6 @@
-require 'dotenv'
-Dotenv.load
+ unless ["production", "staging"].include? ENV['RACK_ENV']
+  require 'dotenv'
+  Dotenv.load
+ end
+
+
