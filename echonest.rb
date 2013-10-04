@@ -3,12 +3,12 @@ module Echonest
     uri_string = "http://developer.echonest.com/api/v4/playlist/static?api_key=#{ENV['ECHONEST_KEY']}" +
     "&mood=#{current_mood}^#{x}"+
     "&mood=#{desired_mood}^#{y}"+
-    "&style=#{style}^100"+
-    "&results=20" +
+    "&style=#{style}^1.2"+
+    "&results=50" +
     "&type=artist-description" +
     "&song_type=studio"+
-    "&song_min_hotttnesss=0.5"+
-    "&artist_min_hotttnesss=0.25"+
+    "&song_min_hotttnesss=0.2"+
+    "&artist_min_hotttnesss=0.2"+
     "&sort=song_hotttnesss-desc"
     uri_address = URI(URI.encode(uri_string))
     response = Net::HTTP.get(uri_address)
