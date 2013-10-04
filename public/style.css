@@ -1,10 +1,30 @@
 
+#loading_message{
+	margin: 0px;
+}
+
+.loading_div {
+	display: none;
+	color: black;
+	background-color: white;
+	position:relative;
+	height: 150px;
+	padding-top: 30px;
+	width: 400px;
+	top: -30px;
+	vertical-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	text-align: center;
+	opacity: 0.7;
+}
 .loading_image {
-  display: none;
-  position:relative;
-  width: 100;
-  margin-left: auto;
-  margin-right: auto;
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	width:200;
 }
 
 
