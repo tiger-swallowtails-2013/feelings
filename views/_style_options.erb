@@ -1,0 +1,7 @@
+<% STYLE_ARRAY.each do |style| %>
+      <%if style == "pop" %>
+        <%= "<option value =\""+style+"\" selected=\"selected\">"+style+"</option>"%>
+      <%else%>
+        <%= "<option value =\""+style+"\">"+style+"</option>"%>
+      <%end%>
+    <%end%>
