@@ -185,8 +185,7 @@ iframe {
   margin-left: .5em;
 }
 
-#credits{
-  color: rgb(170, 170, 170);
+.credits{
   left: 0px;
   right:0px;
   margin-right: auto;
@@ -195,6 +194,13 @@ iframe {
   text-align: center;
   position: fixed;
   bottom: 10px;
+
+}
+.credits a {
+  color: rgb(170, 170, 170);
+
+    text-decoration: none;
+
 }
 
 #tagline p{
