@@ -6,7 +6,6 @@ module Spotify
 
 
 	def self.query_id(all_tracks, song_title)
-		# tracks_in_us = all_tracks["tracks"].select {|track| track["album"]["availability"]["territories"].include?("US")}
 		result = all_tracks["tracks"].select { |track| track["name"].include? song_title}
 		results_in_us = playable_in_us?(result)
 		results_in_us.empty? ? nil : results_in_us[0]["href"].gsub(/spotify:track:/, "")
