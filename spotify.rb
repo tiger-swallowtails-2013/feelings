@@ -6,8 +6,10 @@ module Spotify
 
 
 	def self.query_id(all_tracks, song_title)
+		# tracks_in_us = all_tracks["tracks"].select {|track| track["album"]["availability"]["territories"].include?("US")}
 		result = all_tracks["tracks"].select { |track| track["name"].include? song_title}
-		result.empty? ? nil : result[0]["href"].gsub(/spotify:track:/, "")
+		results_in_us = playable_in_us?(result)
+		results_in_us.empty? ? nil : results_in_us[0]["href"].gsub(/spotify:track:/, "")
 	end
 
 
@@ -29,9 +31,13 @@ module Spotify
 		artist_array = requests.map { |request| JSON.parse(request.response.response_body) }
 		spotify_playlist = []
 		artist_array.each_with_index do |artist_tracks, index|
-			spotify_playlist << query_id(artist_tracks,track_title_array[index])
+			spotify_playlist << query_id(artist_tracks,track_title_array[index]) 
 		end
 		spotify_playlist
 	end
 
-		end
+	def self.playable_in_us?(result)
+		result.select { |track| track["album"]["availability"]["territories"].include?("US") }
+	end
+
+end
