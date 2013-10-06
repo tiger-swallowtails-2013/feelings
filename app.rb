@@ -62,6 +62,7 @@ end
 get '/saveplaylist' do
   date = DateTime.now
   user = User.find(params[:user_id])
+  #name is placeholder for now, user shold be able to input their own name in a popup overlay div
   playlist = Playlist.create(playlist_url: params[:playlist_url], name: "#{date.month}.#{date.day}.#{date.year} | #{params[:playlist_name]}")
   user.playlists << playlist
 end
