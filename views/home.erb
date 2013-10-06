@@ -1,49 +1,55 @@
 
 
-  <div class="container" id="<%=@container_id%>">
-    <div class="navbar">
-      <ul id="navList">
-        <li><img id="logo" src="images/logo_small.png" alt="Moodlist" ></li>
-        <li><a href="/logout" id="logout" class="button logout">Logout</a></li>
-        <li><img id="profile-pic" src="<%=@profile_pic_url%>"></li>
-      </ul>
-    </div>
-
-
-    <div class="leftBar">
-      <h3> Search by mood and genre: </h3>
-      <form  id="gimmesongs" action="/search" method="get">
-
-        <div>
-          <label>  Current mood: </label>
-          <select name="current_mood"><%= erb :_current_mood_options %></select>
-        </div>      
-        
-        <div>
-          <label> Desired mood:</label> 
-          <select name="desired_mood"><%= erb :_desired_mood_options %></select>
-        </div>
-        <div>
-          <label> Style: </label>
-          <select name="style"><%= erb :_style_options %></select>
-        </div>
-        <div>
-          <input id="searchbutton" class="button submit" type="submit" value="Create my playlist">
-        </div>
-      </form>
-
-
-      <% if @songs %>
-      <h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3>
-
-      <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='false' height='380' >
-      </iframe>
-      <%end%>
-</div>
-<div class ="loading_div">
-  <h3 id="loading_message">Creating your custom playlist...<h3>
-    <img id="loading_image" src="images/load.gif" width="100" height="100">
+<div class="container" id="<%=@container_id%>">
+  <div class="navbar">
+    <ul id="navList">
+      <li><img id="logo" src="images/logo_small.png" alt="Moodlist" ></li>
+      <li><a href="/logout" id="logout" class="button logout">Logout</a></li>
+      <li><img id="profile-pic" src="<%=@profile_pic_url%>"></li>
+    </ul>
   </div>
+
+
+  <div class="leftBar">
+    <h3> Search by mood and genre: </h3>
+    <form  id="gimmesongs" action="/search" method="get">
+
+      <div>
+        <label>  Current mood: </label>
+        <select name="current_mood"><%= erb :_current_mood_options %></select>
+      </div>      
+      
+      <div>
+        <label> Desired mood:</label> 
+        <select name="desired_mood"><%= erb :_desired_mood_options %></select>
+      </div>
+      <div>
+        <label> Style: </label>
+        <select name="style"><%= erb :_style_options %></select>
+      </div>
+      <div>
+        <input id="searchbutton" class="button submit" type="submit" value="Create my playlist">
+      </div>
+    </form>
+
+
+    <% if @songs %>
+    <h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3>
+
+    <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='false' height='380' >
+    </iframe>
+    <%end%>
+    <style type="text/css">
+    .jspHorizontalBar {
+      background: black;
+      opacity: 0;
+    }
+    </style>
+  </div>
+  <div class ="loading_div">
+    <h3 id="loading_message">Creating your custom playlist...<h3>
+      <img id="loading_image" src="images/load.gif" width="100" height="100">
+    </div>
 
 
 
