@@ -221,4 +221,15 @@ iframe {
 
 }
 
+#playlist_title{
+  float: left;
+  width: auto;
+text-align: left;
+}
+
+#save{
+  float: right;
+  width: auto;
+
+}
 

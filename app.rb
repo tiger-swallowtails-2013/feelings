@@ -4,6 +4,7 @@ require 'sinatra/activerecord'
 require 'json'
 require 'net/http'
 require 'models/user'
+require 'models/playlist'
 require 'config/dotenv_helper'
 require 'config/omniauth_helper'
 require 'playlist_creator'
@@ -46,14 +47,23 @@ get '/logout' do
 end
 
 get '/search' do
-  @songs = PlaylistCreator.get_playlist(params)
+  songs = PlaylistCreator.get_playlist(params)
+  @spotify_url = "https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:#{songs.join(',')}"
   @current_mood  = params[:current_mood]
   @desired_mood  = params[:desired_mood]
   @style = params[:style]
   @first_name = get_first_name
+  @user_id = get_user_id
   @profile_pic_url = get_profile_pic
   @container_id =""
   erb :home
+end
+
+get '/saveplaylist' do
+  date = DateTime.now
+  user = User.find(params[:user_id])
+  playlist = Playlist.create(playlist_url: params[:playlist_url], name: "#{date.month}.#{date.day}.#{date.year} | #{params[:playlist_name]}")
+  user.playlists << playlist
 end
 
 
@@ -66,6 +76,11 @@ helpers do
   def get_first_name
     user = User.find_by_facebook_uid(session[:facebook_uid])
     user.first_name
+  end
+
+  def get_user_id
+    user = User.find_by_facebook_uid(session[:facebook_uid])
+    user.id
   end
 
   def get_profile_pic

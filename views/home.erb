@@ -32,19 +32,26 @@
       </div>
     </form>
 
-
-    <% if @songs %>
-    <h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3>
-
-    <iframe id="iframe" src="https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:<%= @songs.join(',') %>" frameborder='0' allowtransparency='false' height='380' >
-    </iframe>
-    <%end%>
+    <% if @spotify_url %>
+    <div id="playlist_title"><h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3></div>
+    <div id="save">
+      <form id="save_playlist" action="/saveplaylist" method="get">
+        <input name="user_id" type="hidden" value="<%=@user_id%>">
+        <input name="playlist_url" type="hidden" value="<%= @spotify_url %>">
+        <input name="playlist_name" type="hidden" value="<%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>">
+        <input id="savebutton" class="button submit" type="submit" value="Save!">
+      </form>
+    </div>
     <style type="text/css">
     .jspHorizontalBar {
       background: black;
       opacity: 0;
     }
     </style>
+
+    <iframe id="iframe" src="<%= @spotify_url %>" frameborder='0' allowtransparency='false' height='380' >
+    </iframe>
+    <%end%>
   </div>
   <div class ="loading_div">
     <h3 id="loading_message">Creating your custom playlist...<h3>
