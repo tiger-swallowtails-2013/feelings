@@ -217,3 +217,9 @@ iframe {
   color: rgb(170, 170, 170);
 
 }
+
+
+.jspHorizontalBar {
+  background: black;
+  opacity: 0;
+}
