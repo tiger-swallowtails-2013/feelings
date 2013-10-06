@@ -7,8 +7,8 @@
 }
 #slideshow img {
   position:absolute;
-  width:1700px;
-  height:1100px;
+  width:120%;
+  height:120%;
   top:0;
   left:0;
   margin-left:-100px;
