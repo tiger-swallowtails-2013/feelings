@@ -33,7 +33,7 @@
     </form>
 
     <% if @spotify_url %>
-    <div id="playlist_title"><h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>:</h3></div>
+    <div id="playlist_title"><h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%></h3></div>
     <div id="save">
       <form id="save_playlist" action="/saveplaylist" method="get">
         <input name="user_id" type="hidden" value="<%=@user_id%>">

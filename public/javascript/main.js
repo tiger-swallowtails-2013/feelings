@@ -22,5 +22,6 @@ $('#savebutton').click(function(e){
   console.log($("#save_playlist").serialize())
   $.get("/saveplaylist", $("#save_playlist").serialize(), function(){
       $("#savebutton").attr('value', 'Saved!')
+      $("#savebutton").css('color','#949494')
     })
 })
