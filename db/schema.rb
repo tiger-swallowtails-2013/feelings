@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20131003191415) do
   create_table "playlists", force: true do |t|
     t.string   "playlist_url"
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

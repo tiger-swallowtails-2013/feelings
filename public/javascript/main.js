@@ -17,10 +17,10 @@ $('.leftBar').hover(function(){
 }, function(){
   $(this).stop().animate({left: "-13em"},1000);
 })
-// $('#savebutton').click(function(e){
-//   e.preventDefault();
-//   console.log($("#save_playlist").serialize())
-//   $.get("/saveplaylist", $("#save_playlist").serialize(), function(){
-//       $("#savebutton").attr('value', 'Saved!')
-//     })
-// })
+$('#savebutton').click(function(e){
+  e.preventDefault();
+  console.log($("#save_playlist").serialize())
+  $.get("/saveplaylist", $("#save_playlist").serialize(), function(){
+      $("#savebutton").attr('value', 'Saved!')
+    })
+})

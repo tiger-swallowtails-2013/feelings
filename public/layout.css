@@ -230,6 +230,10 @@ text-align: left;
 #save{
   float: right;
   width: auto;
+  padding: 0px;
+  vertical-align: middle;
+  position: absolute;
+  right: 0px;
 
 }
 
