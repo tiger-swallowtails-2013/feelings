@@ -33,21 +33,17 @@
     </form>
 
     <% if @spotify_url %>
-    <div id="playlist_title"><h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%></h3></div>
-    <div id="save">
-      <form id="save_playlist" action="/saveplaylist" method="post">
-        <input name="user_id" type="hidden" value="<%=@user_id%>">
-        <input name="playlist_url" type="hidden" value="<%= @spotify_url %>">
-        <input name="playlist_name" type="hidden" value="<%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>">
-        <input id="savebutton" class="button submit" type="submit" value="Save!">
-      </form>
+    <div id="playlist-header">
+      <h3 id="playlist-title"><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%></h3>
+      <div id="save">
+        <form id="save_playlist" action="/saveplaylist" method="post">
+          <input name="user_id" type="hidden" value="<%=@user_id%>">
+          <input name="playlist_url" type="hidden" value="<%= @spotify_url %>">
+          <input name="playlist_name" type="hidden" value="<%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>">
+          <input id="savebutton" class="button submit" type="submit" value="Save!">
+        </form>
+      </div>
     </div>
-    <style type="text/css">
-    .jspHorizontalBar {
-      background: black;
-      opacity: 0;
-    }
-    </style>
 
     <iframe id="iframe" src="<%= @spotify_url %>" frameborder='0' allowtransparency='false' height='380' >
     </iframe>

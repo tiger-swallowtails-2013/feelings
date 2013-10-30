@@ -15,7 +15,6 @@ body{
   background-attachment: fixed;
   background-size: cover;
   background-color: #666;
-
 }
 
 #login {
@@ -27,12 +26,32 @@ body{
   background-color: #666;
 }
 
+#tagline p{
+  font-family: 'Open Sans', sans-serif;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: .9em;
+  color: rgb(170, 170, 170);
+}
+
 .container{
   position:absolute;
   top: 0px;
   width: 100%;
   height: 100%;
   overflow: scroll;
+}
+
+#logo_login {
+  position: relative;
+  top: 35%;
+}
+
+#moodlist-logo {
+  display: block;
+  position: relative;
+  margin: 0 auto;
 }
 .navbar {
 
@@ -66,6 +85,7 @@ h1 {
   width: 16em;
   max-height: 100%;
   overflow: scroll;
+  text-align: center;
 }
 
 .leftBar h3 {
@@ -79,6 +99,7 @@ h1 {
   margin: auto;
   width: 90%;
   padding-top: .5em;
+  text-align: left;
 }
 
 .leftBar div {
@@ -93,11 +114,38 @@ h1 {
 }
 
 .leftBar select {
-    float: right;
-    margin-right: 1em;
-     line-height: 2.5em;
+  float: right;
+  margin-right: 1em;
+  line-height: 2.5em;
 }
 
+#save_playlist {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#playlist-header {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#playlist-title{
+  padding: 0;
+  display: inline-block;
+  float: left;
+  width: auto;
+  text-align: left;
+}
+
+#save{
+  float: right;
+  width: auto;
+  padding: 0px;
+  vertical-align: middle;
+  right: 0px;
+}
 
 
 
@@ -131,16 +179,6 @@ h1 {
   background: #114377;/* #175595*/
 }
 
-#logo_login {
-  position: relative;
-  top: 35%;
-}
-
-#moodlist-logo {
-  display: block;
-  position: relative;
-  margin: 0 auto;
-}
 
 .button.facebook {
   display: block;
@@ -159,15 +197,6 @@ h1 {
   background: #103F70;
 }
 
-#tagline p{
-  font-family: 'Open Sans', sans-serif;
-  left: 0px;
-  right: 0px;
-  text-align: center;
-  font-size: .9em;
-  color: rgb(170, 170, 170);
-
-}
 select {
   -webkit-appearance: button;
   -webkit-border-radius: 2px;
@@ -208,25 +237,42 @@ iframe {
 }
 .credits a {
   color: rgb(170, 170, 170);
-
-    text-decoration: none;
-
+  text-decoration: none;
 }
 
 
-#playlist_title{
-  float: left;
-  width: auto;
-text-align: left;
+
+#loading_message{
+  margin: 0px;
 }
 
-#save{
-  float: right;
-  width: auto;
-  padding: 0px;
+.loading_div {
+  display: none;
+  color: black;
+  background-color: white;
+  position:absolute;
+  height: 160px;
+  padding-top: 30px;
+  width: 400px;
+  top: 35%;
   vertical-align: middle;
-  position: absolute;
+  left: 0px;
   right: 0px;
-
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  opacity: 0.7;
+  z-index: 100;
 }
+.loading_image {
+  top: -20px;
+  margin-top: 0px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width:200;
+}
+
+
 
