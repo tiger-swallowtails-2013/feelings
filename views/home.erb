@@ -12,7 +12,7 @@
 
   <div class="leftBar">
     <h3> Search by mood and genre: </h3>
-    <form  id="gimmesongs" action="/search" method="get">
+    <form id="gimmesongs" action="/search" method="get">
 
       <div>
         <label>  Current mood: </label>
@@ -35,7 +35,7 @@
     <% if @spotify_url %>
     <div id="playlist_title"><h3><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%></h3></div>
     <div id="save">
-      <form id="save_playlist" action="/saveplaylist" method="get">
+      <form id="save_playlist" action="/saveplaylist" method="post">
         <input name="user_id" type="hidden" value="<%=@user_id%>">
         <input name="playlist_url" type="hidden" value="<%= @spotify_url %>">
         <input name="playlist_name" type="hidden" value="<%=@style%> | <%=@current_mood%> to  <%=@desired_mood%>">

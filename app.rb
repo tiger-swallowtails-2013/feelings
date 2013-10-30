@@ -59,7 +59,7 @@ get '/search' do
   erb :home
 end
 
-get '/saveplaylist' do
+post '/saveplaylist' do
   date = DateTime.now
   user = User.find(params[:user_id])
 
