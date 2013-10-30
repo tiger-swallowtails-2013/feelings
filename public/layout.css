@@ -112,15 +112,14 @@ h1 {
   text-decoration: none;
 }
 
-
 .button.logout {
   margin: .1em .7em;
   background: #175595; /*#5b94cf*/
   float: right;
 }
+
 .button.logout:hover {
   background: #114377;/* #175595*/
-
 }
 
 .button.submit {
@@ -132,14 +131,22 @@ h1 {
   background: #114377;/* #175595*/
 }
 
+#logo_login {
+  position: relative;
+  top: 35%;
+}
+
+#moodlist-logo {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+
 .button.facebook {
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 26em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 20px;
   width: 5.5em;
   height: 2em;
   background: #114377; /* fb color #014b96*/
@@ -147,10 +154,20 @@ h1 {
   padding-top: .5em;
   padding-left: 2.5em;
 }
+
 .button.facebook:hover {
   background: #103F70;
 }
 
+#tagline p{
+  font-family: 'Open Sans', sans-serif;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: .9em;
+  color: rgb(170, 170, 170);
+
+}
 select {
   -webkit-appearance: button;
   -webkit-border-radius: 2px;
@@ -166,24 +183,14 @@ select {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 50%;
- 
 }
 
 #profile-pic {
   float: right;
   border-radius: 50%;
-
 }
 
-#moodlist-logo {
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 17em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-}
+
 iframe {
   margin-left: .5em;
 }
@@ -206,20 +213,6 @@ iframe {
 
 }
 
-#tagline p{
-  font-family: 'Open Sans', sans-serif;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 24.5em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  text-align: center;
-  font-size: .9em;
-  color: rgb(170, 170, 170);
-
-}
 
 #playlist_title{
   float: left;
