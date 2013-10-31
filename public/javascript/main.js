@@ -20,7 +20,7 @@ $('.leftBar').hover(function(){
 $('#savebutton').click(function(e){
   e.preventDefault();
   console.log($("#save_playlist").serialize())
-  $.get("/saveplaylist", $("#save_playlist").serialize(), function(){
+  $.post("/saveplaylist", $("#save_playlist").serialize(), function(){
       $("#savebutton").attr('value', 'Saved!')
       $("#savebutton").css('color','#949494')
     })

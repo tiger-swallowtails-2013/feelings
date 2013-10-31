@@ -32,6 +32,16 @@
       </div>
     </form>
 
+    <div id="playlist-select">
+      <form method="get" action="/">
+        <select name="Load a saved playlist" onchange="this.form.submit()">
+          <% @saved_playlists.each do |playlist| %>
+            <option value="<%= playlist.name %>" name="load_playlist">
+          <% end %>
+        </select>
+      </form>
+    </div>
+
     <% if @spotify_url %>
     <div id="playlist-header">
       <h3 id="playlist-title"><%=@style%> | <%=@current_mood%> to  <%=@desired_mood%></h3>

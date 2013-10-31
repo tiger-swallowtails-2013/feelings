@@ -25,6 +25,7 @@ get '/' do
     @desired_mood  = "happy"
     @style = "pop"
     @container_id = "home"
+    @saved_playlists = get_playlists
     erb :home
   end
 end
@@ -47,8 +48,12 @@ get '/logout' do
 end
 
 get '/search' do
-  songs = PlaylistCreator.get_playlist(params)
-  @spotify_url = "https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:#{songs.join(',')}"
+  if params[:load_playlist]
+    @spotify_url = User.playlist.find_by(name: params[:load_playlist])
+  else
+    songs = PlaylistCreator.get_playlist(params)
+    @spotify_url = "https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:#{songs.join(',')}"
+  end
   @current_mood  = params[:current_mood]
   @desired_mood  = params[:desired_mood]
   @style = params[:style]
@@ -56,6 +61,7 @@ get '/search' do
   @user_id = get_user_id
   @profile_pic_url = get_profile_pic
   @container_id =""
+  @saved_playlists = get_playlists
   erb :home
 end
 
@@ -75,19 +81,25 @@ helpers do
   end
 
   def get_first_name
-    user = User.find_by_facebook_uid(session[:facebook_uid])
-    user.first_name
+    current_user.first_name
   end
 
   def get_user_id
-    user = User.find_by_facebook_uid(session[:facebook_uid])
-    user.id
+    current_user.id
   end
 
   def get_profile_pic
-    user = User.find_by_facebook_uid(session[:facebook_uid])
-    user.profile_pic_url
+    current_user.profile_pic_url
   end
+
+  def get_playlists
+    current_user.playlists
+  end
+
+  def current_user
+    current_user = current_user || User.find_by_facebook_uid(session[:facebook_uid]) unless is_not_logged_in?
+  end
+
 
 end
 
