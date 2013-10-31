@@ -19,9 +19,17 @@ $('.leftBar').hover(function(){
 })
 $('#savebutton').click(function(e){
   e.preventDefault();
-  console.log($("#save_playlist").serialize())
-  $.post("/saveplaylist", $("#save_playlist").serialize(), function(){
+  $.post("/saveplaylist", $("#save_playlist").serialize(), function(response){
       $("#savebutton").attr('value', 'Saved!')
       $("#savebutton").css('color','#949494')
+      $('#playlist-selector').append("<option>" + response + "</option>")
     })
+})
+
+$('#playlist-selector').change(function(e){
+  e.preventDefault();
+  $('.container').removeAttr('id')
+  $.get("/search", $('#playlist-select-form').serialize(), function(response){
+    $('.container').html(response).removeAttr('id')
+  })
 })

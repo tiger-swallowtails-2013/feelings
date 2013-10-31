@@ -48,15 +48,17 @@ get '/logout' do
 end
 
 get '/search' do
-  if params[:load_playlist]
-    @spotify_url = User.playlist.find_by(name: params[:load_playlist])
+  if params[:saved_playlist]
+    playlist = current_user.playlists.find_by(name: params[:saved_playlist])
+    @spotify_url = playlist.playlist_url
+    get_playlist_name(params[:saved_playlist])
   else
     songs = PlaylistCreator.get_playlist(params)
     @spotify_url = "https://embed.spotify.com/?uri=spotify:trackset:Your customized playlist:#{songs.join(',')}"
+    @current_mood  = params[:current_mood]
+    @desired_mood  = params[:desired_mood]
+    @style = params[:style]
   end
-  @current_mood  = params[:current_mood]
-  @desired_mood  = params[:desired_mood]
-  @style = params[:style]
   @first_name = get_first_name
   @user_id = get_user_id
   @profile_pic_url = get_profile_pic
@@ -69,8 +71,9 @@ post '/saveplaylist' do
   date = DateTime.now
   user = User.find(params[:user_id])
 
-  playlist = Playlist.create(playlist_url: params[:playlist_url], name: "#{date.month}.#{date.day}.#{date.year} | #{params[:playlist_name]}")
+  playlist = Playlist.create(playlist_url: params[:playlist_url], name: "#{date.strftime('%m.%d.%y')} | #{params[:playlist_name]}")
   user.playlists << playlist
+  playlist.name
 end
 
 
@@ -100,6 +103,12 @@ helpers do
     current_user = current_user || User.find_by_facebook_uid(session[:facebook_uid]) unless is_not_logged_in?
   end
 
+  def get_playlist_name(playlist_name)
+    playlist_array = playlist_name.split(" ")
+    @current_mood = playlist_array[4]
+    @desired_mood = playlist_array[6]
+    @style = playlist_array[2]
+  end
 
 end
 
